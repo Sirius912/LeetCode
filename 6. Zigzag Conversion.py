@@ -6,44 +6,34 @@ class Solution(object):
         :rtype: str
         """
         length = len(s)
-        w, h = length/2, numRows
+        w, h = length, numRows
         Matrix = [[' ' for x in range(w)] for y in range(h)]
 
+        print('numRows =', h)
         x, y = 0, 0
         for i in range(length):
-            print(s[i])
-            print('=========x, y, i', x, y, i)
-            if y < numRows:
-                if x == 0:
-                    print('===17===')
-                    print('x, y, i', x, y, i)
-                    Matrix[y][x] = s[i]
-                    y += 1
-
-                elif x % (numRows - 1) == 0:
-                    print('===22===')
-                    # print('x, y', x, y)
-                    y += 1
-                    print('x, y', x, y)
-
-                    Matrix[y][x] = s[i]
-
-                    y += 1
-                else:
-                    print('===27===')
-                    y -= 1
-                    x += 1
-                    print('x, y', x, y)
-                    Matrix[y][x] = s[i]
-            else:
-                print('===32===')
+            if x == 0 and y == 0:
+                Matrix[y][x] = s[i]
+                y += 1
+            elif y < numRows:
+                Matrix[y][x] = s[i]
+                y += 1
+            elif y == numRows:
                 y -= 2
                 x += 1
-                print('x, y', x, y)
                 Matrix[y][x] = s[i]
+                y -= 1
+                x += 1
+            elif (y % numRows) == 0:
+                Matrix[y][x] = s[i]
+                y += 1
             for row in Matrix:
                 print(row)
+            print('')
 
-
-        # for row in Matrix:
-        #     print(row)
+        result = ''
+        for row in Matrix:
+            for char in row:
+                if char != ' ':
+                    result += char
+        return result
